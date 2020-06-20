@@ -1,0 +1,13 @@
+[Unit]
+Description=Constellation
+
+[Service]
+Type=simple
+# Constellation can be run as any user if wanted.
+User=root
+WorkingDirectory=/root/constellation/
+Environment=ALIAS='' CL_STOREPASS='' CL_KEYPASS='' IP=''
+# I name my keystore by the alias. If keystores ever hold more than one alias,
+# this might not make sense.
+ExecStart=/usr/bin/java -Xms1024M -Xmx8G -Xss256K \
+    -jar cl-node.jar --ip=${IP} --port=9000 -k=${ALIAS}.p12 --alias ${ALIAS} --whitelisting whitelisting

@@ -1,0 +1,20 @@
+[Unit]
+Description=Constellation Necromancer
+After=network.target
+
+[Service]
+Type=simple
+
+# Had issues with automatic restart, do not use unless given permission.
+# Restart=always
+# RestartSec=1800
+
+# Must be root in order for necromancer.sh to run systemctl commands.
+User=root
+WorkingDirectory=/root/constellation/
+# Use this if constellation.service will not be running as root.
+Environment=MY_USER=''
+ExecStart=/bin/bash necromancer.sh
+
+[Install]
+WantedBy=multi-user.target
