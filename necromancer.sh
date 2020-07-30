@@ -1,5 +1,5 @@
 #!/bin/bash
-if [[ -z $MY_USER]]; then MY_USER=$USER; fi
+if [[ -z $MY_USER ]]; then MY_USER=$USER; fi
 # Mainnet
 LB='http://lb.constellationnetwork.io'
 # Testnet
