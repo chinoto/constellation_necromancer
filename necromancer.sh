@@ -10,7 +10,7 @@ if [[ -z $OUT ]]; then echo 'Load balancer did not return'; exit 1; fi
 if [[ -z $(echo $OUT | jq '.') ]]; then echo 'Invalid JSON'; exit 1; fi
 
 MY_IP=$(curl -sfL ipecho.net/plain)
-[[ -z $MY_IP ]] && echo 'Failed to get IP of self' && exit 1
+if [[ -z $MY_IP ]]; then echo 'Failed to get IP of self' && exit 1; fi
 
 SELF=$(echo $OUT | jq '.[] | select(.ip.host == "'$MY_IP'")')
 echo -n 'Node Status: '; echo $SELF | jq -r '.status'
