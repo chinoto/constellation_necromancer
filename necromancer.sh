@@ -49,4 +49,5 @@ echo 'Waiting for node to start'
 while true; do curl -sf localhost:9002/metrics > /dev/null && break; sleep 5; done
 echo 'Attempting to join'
 JOIN_IP=$(curl -sf $LB:9000/cluster/info | jq -r '.[] | select(.status=="Ready") | .ip.host' | sort -R | head -n1)
-curl -X POST http://localhost:9002/join -H "Content-type: application/json" -d "{ \"host\": \"$JOIN_IP\", \"port\": 9001 }"
+JOIN_ID=$(curl -s $JOIN_IP:9000/metrics | jq -r .metrics.id)
+curl -X POST http://localhost:9002/join -H "Content-type: application/json" -d "{ \"host\": \"$JOIN_IP\", \"port\": 9001, \"id\": \"$JOIN_ID\" }"
